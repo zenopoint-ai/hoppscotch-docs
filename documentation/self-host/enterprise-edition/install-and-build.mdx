@@ -20,8 +20,8 @@ Before you get started with the installation, you need to configure the environm
 # Get your license key from https://enterprise.hoppscotch.com
 ENTERPRISE_LICENSE_KEY=***************************************
 
-# (Optional) By default, the AIO container (when in subpath access mode) exposes the endpoint on port 80. Use this setting to specify a different port if needed.
-HOPP_AIO_ALTERNATE_PORT=80
+# HTTP bind port for AIO subpath mode and the frontend, backend and admin images; defaults to 80.
+HOPP_ALTERNATE_PORT=80
 
 # Prisma Config
 DATABASE_URL=postgresql://username:password@url:5432/dbname # or replace with your database URL
@@ -80,7 +80,7 @@ Let's understand the major environment variables:
 
 1. `ENTERPRISE_LICENSE_KEY`: The license key required to use Hoppscotch Enterprise.
 2. `DATABASE_URL`: This is where you add your Postgres database URL.
-3. `HOPP_AIO_ALTERNATE_PORT`: This is an optional variable that lets you specify an alternate port for the AIO container's endpoint when operating in subpath access mode. By default, this endpoint is exposed on port 80.
+3. `HOPP_ALTERNATE_PORT`: Sets the HTTP port the container binds in AIO subpath mode and in the frontend, backend and admin images; it defaults to 80.
 4. `HORIZONTAL_SCALING`: Set to true to enable horizontal scaling, which uses Redis for managing pub-sub and state across instances.
 5. `DATA_ENCRYPTION_KEY`: A 32-character key used for encrypting sensitive data stored in the database.
 6. `WHITELISTED_ORIGINS`: URLs of Hoppscotch backend, admin dashboard, frontend app and the bundle server that are allowed to interact with the desktop app.
@@ -183,9 +183,34 @@ When using AIO, when subpath access is set to true the services can be accessed 
 | Hoppscotch Admin App | `/admin`   |
 | Hoppscotch Backend   | `/backend` |
 
+### Container port configuration
+
+<Note>
+ The old name, `HOPP_AIO_ALTERNATE_PORT`, still works as a fallback when `HOPP_ALTERNATE_PORT` is unset.
+</Note>
+
 <Warning>
-By default, the AIO container exposes the app on port 80. This can cause conflicts if you're running on a host system where
-port 80 is privileged, such as with Rootless Docker, Podman, or hardened environments like OpenShift. If you experience issues on these setups, try setting `HOPP_AIO_ALTERNATE_PORT` to bind the app to a non-privileged port.
+ When you set `HOPP_ALTERNATE_PORT`, use an integer from 1 to 65535 that does not collide with a port the image already uses.
+
+ In AIO subpath mode, the image reserves 8080 for the backend and 3200 for the webapp server.
+
+ If the container cannot bind the port, it fails fast at startup and names `HOPP_ALTERNATE_PORT` in the error.
+</Warning>
+
+<Note>
+ AIO multiport mode ignores `HOPP_ALTERNATE_PORT` with a warning and binds the fixed ports 3000, 3100 and 3170.
+</Note>
+
+ In `docker-compose.yml`, the container side of each published port follows `HOPP_ALTERNATE_PORT`, so changing it does not break the stack.
+
+### Run as a non-root user
+
+ Hoppscotch 2026.6.1 lets the self-host container images run under an arbitrary non-root user ID, including for OpenShift's restricted-v2 security context constraint.
+
+ To run on OpenShift, set `HOPP_ALTERNATE_PORT` to a free port of 1024 or above, point your Service or Route at that container port, and run as a non-root user ID in group 0.
+
+<Warning>
+ You need a writable root filesystem when running as a non-root user ID because runtime environment injection rewrites the `/site` assets in place.
 </Warning>
 
 ## Migrations
