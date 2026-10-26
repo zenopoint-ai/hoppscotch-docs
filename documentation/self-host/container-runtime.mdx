@@ -1,0 +1,41 @@
+---
+sidebarTitle: Container runtime
+title: Configure the self-host container runtime
+description: Non-root deployment and container port configuration.
+---
+
+## Run as a non-root user
+
+Hoppscotch 2026.6.1 lets you run the self-host container images under an arbitrary non-root user ID, including one required by OpenShift's restricted-v2 security context constraint.
+
+<Warning>
+Use a writable root filesystem when running as a non-root user, because runtime environment injection rewrites the `/site` assets in place.
+</Warning>
+
+## Configure the container port
+
+Use `HOPP_ALTERNATE_PORT` to set the HTTP port the container binds in the AIO image in subpath mode, or in the frontend, backend, and admin images. The default is 80.
+
+<Note>
+The old setting, `HOPP_AIO_ALTERNATE_PORT`, still works as a fallback when `HOPP_ALTERNATE_PORT` is unset.
+</Note>
+
+In `docker-compose.yml`, the container side of each published port follows `HOPP_ALTERNATE_PORT`, so changing this setting does not break the stack's port mappings.
+
+### Port constraints
+
+When you set `HOPP_ALTERNATE_PORT`, use an integer from 1 to 65535 that does not collide with a port the image already uses.
+
+<Warning>
+If the container cannot bind the port, it fails fast at startup and names `HOPP_ALTERNATE_PORT` in the error.
+
+In AIO subpath mode, the image reserves port 8080 for the backend and port 3200 for the webapp server.
+</Warning>
+
+<Note>
+In AIO multiport mode, `HOPP_ALTERNATE_PORT` is ignored with a warning because this mode uses the fixed ports 3000, 3100, and 3170.
+</Note>
+
+## Run on OpenShift
+
+To run on OpenShift, set `HOPP_ALTERNATE_PORT` to a free port of 1024 or above, point your Service or Route at that container port, and run as a non-root user ID in group 0.
