@@ -1,7 +1,7 @@
 ---
 sidebarTitle: AI Features 
 title: AI Features
-description: Use AI-powered features in Hoppscotch to rename requests, generate payloads, write scripts and tests, and use the experimental AI bot.
+description: "Use the AI Assistant in Enterprise Cloud and Enterprise Self-Host."
 ---
 
 <span style={{ 
@@ -18,15 +18,31 @@ description: Use AI-powered features in Hoppscotch to rename requests, generate 
 
 Hoppscotch now offers a set of AI-powered features designed to simplify core stages of the API development lifecycle. These include renaming of API requests, generation of structured request payloads, and scripting capabilities for pre-request logic and test cases.
 
-<Warning> The AI-assisted editing features below are experimental and available on [Hoppscotch Cloud](https://hoppscotch.io) and the [Desktop app](https://hoppscotch.com/download). They are not supported in Self-Hosted Edition. The separate AI bot is experimental and available on Enterprise Cloud and Enterprise Self-Host. </Warning>
+<Warning> The AI-assisted editing features below are experimental and available on [Hoppscotch Cloud](https://hoppscotch.io) and the [Desktop app](https://hoppscotch.com/download). They are not supported in Self-Hosted Edition. The separate AI Assistant is available on Enterprise Cloud and Enterprise Self-Host. </Warning>
 
-### AI bot
+### AI Assistant
 
-The AI bot is an experimental chat assistant that can act on the request, response, environment, and collections you're working with. It uses Hoppscotch tools to carry out tasks such as adding authentication, running a request, writing a test, creating an environment, or organizing a collection. It can chain actions together and show its progress.
+The AI Assistant is available on [Enterprise Cloud](https://hoppscotch.io) and [Enterprise Self-Host](/documentation/self-host/enterprise-edition/getting-started).
 
-The bot can edit request fields, run and save requests, manage tabs, work with environments and collections, publish documentation, and manage mock servers. Skills for common workflows are available from the `/` menu.
+The assistant understands your active request, response, environment and collections. It uses Hoppscotch tools to edit and run requests, manage tabs, create environments, organize collections, publish documentation and manage mock servers.
 
-The AI bot is available on [Enterprise Cloud](https://hoppscotch.io) and [Enterprise Self-Host](/documentation/self-host/enterprise-edition/getting-started). To enable it, open **Settings** > **AI Experiments**, then connect a supported provider: Anthropic, OpenAI, Amazon Bedrock, Azure, or a compatible local runtime.
+#### Connect a provider
+
+As an Enterprise administrator, open **Settings > AI experiments** to connect a provider such as Anthropic, OpenAI, Bedrock, Azure or a compatible local runtime.
+
+#### Choose a model and use skills
+
+Use the model picker in the assistant's message box to choose a model.
+
+Open the `/` menu to run skills for workflows such as debugging requests, writing tests, adding authentication and documenting an API. The assistant ships with six built-in skills.
+
+#### Context and safety
+
+Each assistant turn stays on the tab and workspace it started in. The assistant redacts credentials it finds in messages.
+
+<Warning>
+Before the assistant runs or saves a request to a host it chose, it asks you to confirm. This approval never covers a script's own requests at runtime.
+</Warning>
 
 ### Enable AI-powered features
 
