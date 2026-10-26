@@ -1,0 +1,32 @@
+---
+title: AI Assistant
+sidebarTitle: AI Assistant
+---
+
+Hoppscotch 2026.9.0 adds an AI Assistant to Enterprise Cloud and Enterprise Self-Host.
+
+## Connect a provider
+
+As an Enterprise administrator, connect the AI Assistant to a provider such as Anthropic, OpenAI, Bedrock, Azure or a compatible local runtime from Settings > AI experiments.
+
+## Work with the assistant
+
+Use the model picker in the AI Assistant's message box to choose a model.
+
+The assistant understands your active request, response, environment and collections. It uses Hoppscotch tools to edit and run requests, manage tabs, create environments, organize collections, publish documentation and manage mock servers.
+
+Open the `/` menu to run skills for workflows such as debugging requests, writing tests, adding authentication and documenting an API. The assistant ships with six built-in skills.
+
+<Note>
+Each assistant turn stays on the tab and workspace it started in.
+</Note>
+
+## Credentials and host confirmation
+
+The assistant redacts credentials it finds in messages.
+
+Before the assistant runs or saves a request to a host it chose, it asks you to confirm.
+
+<Warning>
+A script's own requests at runtime are never covered by that approval.
+</Warning>
