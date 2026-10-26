@@ -1,32 +1,44 @@
 ---
-sidebarTitle: AI Features 
+sidebarTitle: AI Features
 title: AI Features
-description: Use AI-powered features in Hoppscotch to rename requests, generate payloads, write scripts and tests, and use the experimental AI bot.
+description: Use AI-powered features in Hoppscotch to rename requests, generate payloads, write scripts and tests, and use the AI Assistant.
 ---
 
-<span style={{ 
-  display: 'inline-block', 
-  border: '1.5px solid #07C983', 
-  color: '#07C983', 
-  fontSize: '0.8rem', 
-  padding: '0.4em 0.5em', 
-  borderRadius: '0.4em', 
-  verticalAlign: 'middle', 
-  backgroundColor: 'transparent', 
-  fontWeight: 'bold' 
-}}>Experimental</span>
+<Note>Experimental</Note>
 
 Hoppscotch now offers a set of AI-powered features designed to simplify core stages of the API development lifecycle. These include renaming of API requests, generation of structured request payloads, and scripting capabilities for pre-request logic and test cases.
 
-<Warning> The AI-assisted editing features below are experimental and available on [Hoppscotch Cloud](https://hoppscotch.io) and the [Desktop app](https://hoppscotch.com/download). They are not supported in Self-Hosted Edition. The separate AI bot is experimental and available on Enterprise Cloud and Enterprise Self-Host. </Warning>
+<Warning> The AI-assisted editing features below are experimental and available on [Hoppscotch Cloud](https://hoppscotch.io) and the [Desktop app](https://hoppscotch.com/download). They are not supported in Self-Hosted Edition. </Warning>
 
-### AI bot
+### AI Assistant
 
-The AI bot is an experimental chat assistant that can act on the request, response, environment, and collections you're working with. It uses Hoppscotch tools to carry out tasks such as adding authentication, running a request, writing a test, creating an environment, or organizing a collection. It can chain actions together and show its progress.
+Hoppscotch 2026.9.0 adds the AI Assistant to Enterprise Cloud and Enterprise Self-Host.
 
-The bot can edit request fields, run and save requests, manage tabs, work with environments and collections, publish documentation, and manage mock servers. Skills for common workflows are available from the `/` menu.
+The AI Assistant understands your active request, response, environment and collections. It uses Hoppscotch tools to edit and run requests, manage tabs, create environments, organize collections, publish documentation and manage mock servers.
 
-The AI bot is available on [Enterprise Cloud](https://hoppscotch.io) and [Enterprise Self-Host](/documentation/self-host/enterprise-edition/getting-started). To enable it, open **Settings** > **AI Experiments**, then connect a supported provider: Anthropic, OpenAI, Amazon Bedrock, Azure, or a compatible local runtime.
+#### Connect a provider
+
+As an Enterprise administrator, open **Settings > AI experiments** to connect the AI Assistant to a provider such as Anthropic, OpenAI, Bedrock, Azure or a compatible local runtime.
+
+#### Choose a model and use skills
+
+You can choose a model from the picker in the AI Assistant's message box.
+
+Use the `/` menu to run skills for workflows such as debugging requests, writing tests, adding authentication and documenting an API. The AI Assistant ships with six built-in skills.
+
+#### Credentials and request approval
+
+The AI Assistant redacts credentials it finds in messages.
+
+Before the AI Assistant runs or saves a request to a host it chose, it asks you to confirm.
+
+<Warning>
+A script's own requests at runtime are never covered by that approval.
+</Warning>
+
+<Note>
+Each AI Assistant turn stays on the tab and workspace it started in.
+</Note>
 
 ### Enable AI-powered features
 
@@ -72,6 +84,6 @@ The features above run inside the Hoppscotch app. To let an external AI agent wo
 
 <Note>The MCP server is a separate, generally available product. The experimental status and the alpha notice above apply to the in-app AI features, not to it. Unlike those features, it works with both [Hoppscotch Cloud](https://hoppscotch.io) and self-hosted instances.</Note>
 
-<Card title="Hoppscotch MCP Server" iconType="light" icon="circle-arrow-right" href="/documentation/clients/mcp-server/overview">
-  Install the server, connect your MCP host, and review what each tool can do.
-</Card>
+[Hoppscotch MCP Server](/documentation/clients/mcp-server/overview)
+
+Install the server, connect your MCP host, and review what each tool can do.
